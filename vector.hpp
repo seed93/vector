@@ -144,6 +144,7 @@ namespace lni {
 		arr = new T[rsrv_sz];
 		for (i = 0; i < count; ++i, ++first)
 			arr[i] = *first;
+		vec_sz = count;
 	}
 
 	template <typename T>
