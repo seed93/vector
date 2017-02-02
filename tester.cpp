@@ -191,6 +191,18 @@ int main() {
 		printf(" %.3f", *it);
 	puts("\n");
 
+	puts("Testing issue #4 #5 on github.com/lnishan/vector ... ");
+	lni::vector<int> v9(4, 5);
+	puts(" v9:");
+	for (auto &n: v9)
+		printf(" %d", n);
+	puts("");
+	v9.assign(8, 7);
+	puts(" v9 (after assign(8, 7)):");
+	for (auto &n: v9)
+		printf(" %d", n);
+	puts("\n");
+
 #endif
 	
 	st = clock();

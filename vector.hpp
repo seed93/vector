@@ -31,7 +31,7 @@ namespace lni {
 			vector() noexcept;
 			explicit vector(size_type n);
 			vector(size_type n, const T &val);
-			template <class InputIt> vector(InputIt first, InputIt last);
+			vector(typename vector<T>::iterator first, typename vector<T>::iterator last);
 			vector(std::initializer_list<T>);
 			vector(const vector<T> &);
 			vector(vector<T> &&) noexcept;
@@ -40,7 +40,7 @@ namespace lni {
 			vector<T> & operator = (vector<T> &&);
 			vector<T> & operator = (std::initializer_list<T>);
 			void assign(size_type, const T &value);
-			template <class InputIt> void assign(InputIt, InputIt);
+			void assign(typename vector<T>::iterator, typename vector<T>::iterator);
 			void assign(std::initializer_list<T>);
 
 			// iterators:
@@ -137,8 +137,7 @@ namespace lni {
 	}
 
 	template <typename T>
-	template <class InputIt>
-	vector<T>::vector(InputIt first, InputIt last) {
+	vector<T>::vector(typename vector<T>::iterator first, typename vector<T>::iterator last) {
 		size_type i, count = last - first;
 		rsrv_sz = count << 2;
 		arr = new T[rsrv_sz];
@@ -228,8 +227,7 @@ namespace lni {
 	}
 
 	template <typename T>
-	template <class InputIt>
-	void vector<T>::assign(InputIt first, InputIt last) {
+	void vector<T>::assign(typename vector<T>::iterator first, typename vector<T>::iterator last) {
 		size_type i, count = last - first;
 		if (count > rsrv_sz) {
 			rsrv_sz = count << 2;
