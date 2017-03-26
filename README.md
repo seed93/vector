@@ -4,13 +4,13 @@
 
 [![Build Status](https://travis-ci.org/lnishan/vector.svg?branch=master)](https://travis-ci.org/lnishan/vector)
 
-☘ This is meant to show you why you should ditch C++ STLs when performance is critical.  
+ This is meant to show you why you should ditch C++ STLs when performance is critical.  
 `lni::vector` should always be faster or just as fast as other implementations. 
 
-☘ Since the implementation is compliant with the current [C++17 Working Draft](http://open-std.org/JTC1/SC22/WG21/docs/papers/2016/n4594.pdf) (minus Allocator),  
-`lni::vector` should be a drop-in replacement for `std:vector` in most cases.  
+ Since the implementation is compliant with the current [C++17 Working Draft](http://open-std.org/JTC1/SC22/WG21/docs/papers/2016/n4594.pdf) (minus Allocator),  
+`lni::vector` should be a drop-in replacement for `std::vector` in most cases.  
 
-☘ Just note that `lni::vector` can generate redundancies up to 3x the data size (4x total).  
+ Just note that `lni::vector` can generate redundancies up to 3x the data size (4x total).  
 (Consider using `shrink_to_fit()` to remove redundancies, but beware that a memory reallocation would take place.)
 
 
@@ -166,24 +166,24 @@ Also, the initial reserved sizes are usually assigned only 1.
 
 This means:
 
-☘ Memory reallocations are very likely to take place, especially in the beginning.  
+ Memory reallocations are very likely to take place, especially in the beginning.  
 - You usually need more than 1 single space  
 - Low growth factor and low initial reserved size means small sizes in the beginning (1, 2, 4, 8 ...), even though it grows fast later on
 
-☘ Assuming the growth factor is 2, the average cost of inserting a new element is **3**, which is reasonably high.  
+ Assuming the growth factor is 2, the average cost of inserting a new element is **3**, which is reasonably high.  
 - Use your favorite complexity analysis method: Aggregation, Accounting, Potential ... etc., any will do  
 - The average cost for `lni::vector` is **2.333**, and is in fact lower for the reason stated below
 
-☘ The impact of growth factors is underestimated.  
+ The impact of growth factors is underestimated.  
 - In these analyses, we "falsely" assume that a memory reallocation would be the last operation
 - The actual average cost is in fact lower, because the costs for the elements inserted after the last memory reallocation are essentially FREE
 
 ### The correct way to use your vector
 
-☘ If you still want to use STLs,  
+ If you still want to use STLs,  
 **ALWAYS reserve a reasonable size** before you start inserting elements.
 
-☘ A better way in my opinion, is to:   
+ A better way in my opinion, is to:   
 **Use an implementation with a high growth factor** like mine,  
 and **use `shrink_to_fit()` remove redundancies after you've completed inserting all the elements**.  
 This is because you don't always know how much space you need (Sometimes it depends on the input),  
